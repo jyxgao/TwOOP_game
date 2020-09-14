@@ -12,6 +12,6 @@ class Player
   end
 
   def dead?
-    @lives = 0
+    @lives <= 0
   end
 end

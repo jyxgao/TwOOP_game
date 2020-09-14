@@ -25,15 +25,22 @@ class Game
     sum = $stdin.gets.chomp.to_i
 
     if sum == @answer
-      puts "YES! You are correct."
+      puts "#{@players[0].name}: YES! You are correct."
     else 
       @players[0].take_life
-      puts "Seriously? No!"
+      puts "#{@players[0].name}: Seriously? No!"
     end
   end
 
   def display_status
     puts "#{@player1.name}: #{@player1.lives}/3 vs #{@player2.name}: #{@player2.lives}/3"
+  end
+
+  def winner
+    winner = @players.find {|player| !player.dead?}
+    puts "#{winner.name} wins with a score of #{winner.lives}/3!"
+    puts "----- GAME OVER -----"
+    puts "Good bye!"
   end
 
   def game_over?
@@ -42,9 +49,11 @@ class Game
 
   def play
     puts "Game starting"
-
+    while !game_over? do
       next_round
       check_answer
       display_status
+    end
+    winner
   end
 end
